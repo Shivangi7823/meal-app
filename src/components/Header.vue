@@ -13,9 +13,10 @@
 
         <v-text-field
           placeholder="search meal"
+          v-on:keyup.enter="search()"
           v-model="searchQuery"
           outlined
-          solo="true"
+          solo
         ></v-text-field>
 
         <v-btn color="white" icon small @click="search()"
@@ -41,9 +42,11 @@ export default {
         params: { query: this.searchQuery }
       });
       this.searchQuery = "";
-    }
+    },
+
+    
   }
-};
+  };
 </script>
 <style scoped>
 .textbox {

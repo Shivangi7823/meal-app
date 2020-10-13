@@ -17,7 +17,7 @@
               
               <br>
 
-              <v-card>
+              <v-card  >
               <router-link
                 :to="{ name: 'ShowDetails', params: { id: m.idMeal } }"
               >
@@ -40,22 +40,30 @@
 </template>
 
 <script>
-import { randomMeal } from "@/api";
+
+import {  mapGetters } from 'vuex';
 
 export default {
   name: "Home",
 
-  data() {
-    return {
-      meals: []
-    };
+ 
+  computed : {
+    ...mapGetters({
+      meals:"getMeals"
+    })
+
   },
 
+
   created() {
-    randomMeal().then(response => {
-      this.meals = response.data["meals"];
-      console.log(this.meals);
-    });
+   this.getMeal()
+  },
+
+  methods : {
+
+getMeal(){
+      this.$store.dispatch('getRandomMeal')
+    },
   }
 };
 </script>

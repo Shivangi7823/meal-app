@@ -1,10 +1,11 @@
 
 
 <template>
-  <div  style=" background : #2d2013">
+  <div  style=" background : #2d2013" v-if="searchMeals!=null"> 
+
     <v-container>
-      <v-row>
-        <v-col v-for="(meal, index) in meals" :key="index" cols="12"
+      <v-row >
+        <v-col v-for="(meal, index) in  searchMeals" :key="index" cols="12"
           md="6"
           lg="4">
           <v-card>
@@ -31,21 +32,26 @@
           </v-card>
         </v-col>
       </v-row>
+
+     
     </v-container>
+  </div>
+  <div v-else>
+      
+     
+      {{mealNotFound()}}
+
   </div>
 </template>
 
 <script>
-import { showResult } from "../api.js";
+
+import {  mapGetters } from 'vuex';
+
 export default {
   name: "SearchResults",
 
-  data() {
-    return {
-      meals: [],
-      q: this.$route.params.query
-    };
-  },
+ 
 
  /*beforeRouteUpdate(to, from, next) {
     this.showDetails(to.params.query);
@@ -65,17 +71,27 @@ export default {
 
   },
 
+   computed : {
+    ...mapGetters({
+      searchMeals:"getSearchedMeals"
+    })
+
+  },
+
   methods: {
     showDetails(q) {
-      showResult(q).then(response => {
-        this.meals = response.data["meals"];
-
-        if (this.meals == null)
-          this.$router.push({
+        this.$store.dispatch('getSearchedMeal',q)
+      
+    },
+     mealNotFound()
+     {
+        this.$router.push({
             name: "not-found"
           });
-      });
-    }
+     }
+      
+     
+
   }
 };
 </script>

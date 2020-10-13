@@ -3,7 +3,8 @@ import App from "./App.vue";
 import router from "./router";
 import Vuetify from "vuetify";
 import vuetify from "./plugins/vuetify";
-import VueYouTubeEmbed from 'vue-youtube-embed'
+import VueYouTubeEmbed from 'vue-youtube-embed';
+import store from "./store";
 Vue.use(VueYouTubeEmbed)
 
 
@@ -16,6 +17,7 @@ Vue.config.productionTip = false;
 
 new Vue({
   router,
+  store,
   vuetify,
   render: h => h(App)
 }).$mount("#app");
